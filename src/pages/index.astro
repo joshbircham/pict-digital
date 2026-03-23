@@ -1,11 +1,1132 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro? Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Navigation from '../components/Navigation.astro';
 ---
 
-<Layout title="Pict Digital">
-	<Welcome />
+<Layout title="Pict Digital | Creative Consultancy, Aberdeen">
+  <Navigation />
+
+  <main>
+
+    <!-- ──────────────────────────────────────
+         HERO
+    ────────────────────────────────────── -->
+    <section class="hero" id="hero">
+
+  <div class="hero-sticky">
+    <div class="container">
+      <div class="hero-inner">
+
+        <!-- LEFT: text content -->
+        <div class="hero-content">
+          <div class="hero-eyebrow hero-reveal" style="--hero-delay:0.1s">
+            <span class="label">PICT DIGITAL &mdash; Aberdeen, Scotland</span>
+          </div>
+          <h1 class="hero-title hero-reveal" style="--hero-delay:0.22s">
+            Worthwhile<br />creative work.
+          </h1>
+          <hr class="rule hero-rule hero-reveal" aria-hidden="true" style="--hero-delay:0.38s" />
+          <p class="hero-sub hero-reveal" style="--hero-delay:0.48s">
+            Narrative video, creative strategy, and place-based<br class="br-md" /> storytelling. Aberdeen, Scotland.
+          </p>
+        </div>
+
+        <!-- RIGHT: illustration panel -->
+        <div class="hero-illustrations" aria-hidden="true">
+          <img
+            src="/images/pict-botanicals.png"
+            class="hero-botanicals"
+            alt=""
+            width="2400"
+            height="2800"
+          />
+          <img
+            src="/images/pict-camera.png"
+            class="hero-camera"
+            alt=""
+            width="900"
+            height="1000"
+          />
+          <!-- SVG annotation layer — populated by JS on desktop only -->
+          <svg class="hero-annotations" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+    <!-- ──────────────────────────────────────
+         ABOUT
+    ────────────────────────────────────── -->
+    <section id="about" class="about section">
+      <div class="container">
+        <hr class="rule rule--light section-top-rule rule-reveal" aria-hidden="true" />
+
+        <span class="section-label reveal" data-reveal>About</span>
+
+        <div class="about-body">
+
+          <div class="about-text" data-reveal>
+            <h2 class="reveal">Josh Bircham</h2>
+            <p class="about-lead reveal" data-delay="70">
+              Josh Bircham is a Senior Lecturer in Digital Marketing at Robert Gordon University and the founder of Pict Digital.
+            </p>
+            <p>
+              His practice sits at the intersection of academic research and applied creative work — bringing
+              the same depth of thought to a short documentary as to a long-form campaign
+              strategy. He has worked with broadcasters, cultural institutions, heritage bodies,
+              and arts organisations across Scotland and beyond.
+            </p>
+            <p>
+              He is a published author, a Fellow of the Higher Education Academy, and an External Examiner
+              at Ravensbourne University London. He is currently completing a PhD at RGU.
+            </p>
+            <p>
+              Pict Digital takes on a small number of projects each year.
+            </p>
+            <p class="annotation">
+              AI-informed workflows &nbsp;·&nbsp; Documentary approach &nbsp;·&nbsp; Theory in practice
+            </p>
+          </div>
+
+          <aside class="about-credentials" aria-label="Credentials" data-reveal style="--stagger:1">
+
+            <dl class="credentials-block">
+              <dt class="label">field notes</dt>
+              <dd>MA</dd>
+              <dd>MSc</dd>
+              <dd>FHEA</dd>
+              <dd>PhD Candidate</dd>
+            </dl>
+
+            <dl class="credentials-block">
+              <dt class="label">habitat</dt>
+              <dd>Senior Lecturer<br />Digital Marketing</dd>
+              <dd class="credentials-institution">Robert Gordon University<br />Aberdeen, Scotland</dd>
+            </dl>
+
+            <dl class="credentials-block">
+              <dt class="label">observed range</dt>
+              <dd>Narrative Video</dd>
+              <dd>Creative Campaigns</dd>
+              <dd>Place &amp; Culture</dd>
+              <dd>AI Strategy</dd>
+            </dl>
+
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────
+         SERVICES
+    ────────────────────────────────────── -->
+    <section id="services" class="services section">
+      <div class="container">
+        <hr class="rule rule--light section-top-rule rule-reveal" aria-hidden="true" />
+
+        <span class="section-label reveal" data-reveal>Services</span>
+
+        <div class="services-list">
+
+          <article class="service-item" data-reveal style="--stagger:1">
+            <div class="service-number">
+              <span class="fig-label">fig.&nbsp;i</span>
+            </div>
+            <div class="service-content">
+              <h3>Narrative Video</h3>
+              <p>
+                Cinematic storytelling that captures the character of place and the texture of
+                lived experience. Documentary-style narratives, branded films, and cultural
+                documentation made with genuine craft.
+              </p>
+              <p class="annotation">
+                Place-based documentary &nbsp;·&nbsp; Brand films &nbsp;·&nbsp; Cultural documentation
+              </p>
+            </div>
+          </article>
+
+          <article class="service-item" data-reveal style="--stagger:2">
+            <div class="service-number">
+              <span class="fig-label">fig.&nbsp;ii</span>
+            </div>
+            <div class="service-content">
+              <h3>Creative Consultancy</h3>
+              <p>
+                Strategic creative direction informed by deep expertise in digital marketing
+                and content strategy. Campaign development, creative review, and the kind of
+                critical thinking that sharpens good ideas into great ones.
+              </p>
+              <p class="annotation">
+                Campaign strategy &nbsp;·&nbsp; Creative direction &nbsp;·&nbsp; Digital marketing
+              </p>
+            </div>
+          </article>
+
+          <article class="service-item" data-reveal style="--stagger:3">
+            <div class="service-number">
+              <span class="fig-label">fig.&nbsp;iii</span>
+            </div>
+            <div class="service-content">
+              <h3>Place &amp; Culture</h3>
+              <p>
+                Projects that honour the specificity of Scottish landscapes, communities, and
+                cultural heritage. Authentic representation for cultural institutions, heritage
+                bodies, and place-promotion initiatives.
+              </p>
+              <p class="annotation">
+                Cultural heritage &nbsp;·&nbsp; Scottish landscapes &nbsp;·&nbsp; Community storytelling
+              </p>
+            </div>
+          </article>
+
+          <article class="service-item" data-reveal style="--stagger:4">
+            <div class="service-number">
+              <span class="fig-label">fig.&nbsp;iv</span>
+            </div>
+            <div class="service-content">
+              <h3>AI Strategy</h3>
+              <p>
+                AI-informed strategy for organisations navigating what these tools actually mean in practice.
+              </p>
+              <p class="annotation">
+                AI strategy &nbsp;·&nbsp; Workflow &nbsp;·&nbsp; Critical adoption
+              </p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────
+         CLIENTS
+    ────────────────────────────────────── -->
+    <section id="clients" class="clients section">
+      <div class="container">
+        <hr class="rule rule--light section-top-rule rule-reveal" aria-hidden="true" />
+
+        <span class="section-label reveal" data-reveal>Selected Clients</span>
+
+        <ul class="clients-list" role="list">
+          <li class="client-item client-reveal" data-delay="0">
+            <span class="client-name">StAnza Poetry Festival</span>
+            <span class="annotation">Cultural programming</span>
+          </li>
+          <li class="client-item client-reveal" data-delay="80">
+            <span class="client-name">BBC</span>
+            <span class="annotation">Regional content production</span>
+          </li>
+          <li class="client-item client-reveal" data-delay="160">
+            <span class="client-name">Historic Environment Scotland</span>
+            <span class="annotation">Heritage interpretation</span>
+          </li>
+          <li class="client-item client-reveal" data-delay="240">
+            <span class="client-name">Scottish Government</span>
+            <span class="annotation">Public engagement campaigns</span>
+          </li>
+          <li class="client-item client-reveal" data-delay="320">
+            <span class="client-name">Linen Hall Library</span>
+            <span class="annotation">Cultural institution</span>
+          </li>
+          <li class="client-item client-reveal" data-delay="400">
+            <span class="client-name">Aberdeenshire Council</span>
+            <span class="annotation">Place promotion</span>
+          </li>
+        </ul>
+
+      </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────
+         CONTACT
+    ────────────────────────────────────── -->
+    <section id="contact" class="contact section">
+      <div class="container">
+        <hr class="rule rule--light section-top-rule rule-reveal" aria-hidden="true" />
+
+        <div class="contact-inner">
+
+          <div class="contact-text" data-reveal>
+            <span class="section-label">Contact</span>
+            <h2>Let's work<br />together.</h2>
+            <p>
+              Every project begins with a conversation. If you're working on something
+              that calls for genuine narrative craft: a film, a campaign, a creative
+              strategy. I'd welcome the chance to hear about it.
+            </p>
+            <p class="annotation">
+              Aberdeen, Scotland &nbsp;·&nbsp; Solo practitioner &nbsp;·&nbsp; Direct collaboration
+            </p>
+          </div>
+
+          <div class="contact-action" data-reveal style="--stagger:1">
+            <a href="mailto:hello@pictdigital.com" class="cta-link">
+              <span class="cta-email">hello@pictdigital.com</span>
+              <span class="label cta-prompt">Begin a conversation</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────
+         FOOTER
+    ────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container">
+        <hr class="rule rule--light" aria-hidden="true" />
+        <div class="footer-inner">
+          <div class="footer-left">
+            <span class="label">Pict Digital</span>
+            <span class="label">Aberdeen, Scotland</span>
+            <span class="label">© 2026</span>
+          </div>
+          <nav class="footer-social" aria-label="Social links">
+            <a href="https://instagram.com/josh.bircham" class="specimen-label" target="_blank" rel="noopener">IG</a>
+            <a href="https://tiktok.com/@josh.bircham" class="specimen-label" target="_blank" rel="noopener">TK</a>
+            <a href="https://linkedin.com/in/josh-bircham" class="specimen-label" target="_blank" rel="noopener">LI</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+  </main>
 </Layout>
+
+
+<style>
+
+  /* ──────────────────────────────────────
+     HERO ENTRANCE ANIMATION
+  ────────────────────────────────────── */
+
+  @keyframes reveal-up {
+    from { opacity: 0; transform: translateY(1.25rem); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes reveal-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .hero-reveal {
+    opacity: 0;
+    animation: reveal-up 0.75s ease forwards;
+    animation-delay: var(--hero-delay, 0s);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-reveal { opacity: 1; animation: none; }
+  }
+
+
+  /* ──────────────────────────────────────
+     SCROLL REVEAL
+  ────────────────────────────────────── */
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition-delay: calc(var(--stagger, 0) * 80ms);
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* Fade + drift up */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 400ms ease-out, transform 400ms ease-out;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Rule draw left to right */
+  .rule-reveal {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 600ms ease-out;
+  }
+
+  .rule-reveal.visible {
+    transform: scaleX(1);
+  }
+
+  /* Client row fade */
+  .client-reveal {
+    opacity: 0;
+    transition: opacity 350ms ease-out;
+  }
+
+  .client-reveal.visible {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .rule-reveal, .client-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+
+  /* ──────────────────────────────────────
+     HERO — sticky scroll container
+  ────────────────────────────────────── */
+
+  .hero {
+    /* Extra height drives the scroll progress */
+    height: 250vh;
+    position: relative;
+  }
+
+  .hero-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    /* z-index:1 keeps hero below the fixed nav (z-index:100).
+       Without this, Safari can render sticky panels above fixed elements. */
+    z-index: 1;
+  }
+
+  .hero-sticky .container {
+    width: 100%;
+  }
+
+  /* Two-column grid */
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 5rem;   /* clear fixed nav */
+    padding-bottom: 3rem;
+  }
+
+  /* ── LEFT: text ── */
+  .hero-content {
+    max-width: 520px;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-rule {
+    max-width: 340px;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-sub {
+    max-width: 400px;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+  }
+
+  /* ── RIGHT: illustration panel ── */
+  .hero-illustrations {
+    position: relative;
+    height: 100vh;
+    overflow: visible;
+  }
+
+  /* Botanical — left side of panel, bottom-anchored */
+  .hero-botanicals {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 62%;
+    height: auto;
+    object-fit: contain;
+    object-position: bottom left;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Camera — right side of panel, bottom-anchored, starts off-screen right */
+  .hero-camera {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 52%;
+    height: auto;
+    object-fit: contain;
+    object-position: bottom right;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 2;
+    transform: translateX(110%);   /* off-screen initial state */
+    will-change: transform;
+  }
+
+  /* SVG annotation layer — covers full illustration panel */
+  .hero-annotations {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    overflow: visible;
+  }
+
+  /* .br-md */
+  .br-md { display: none; }
+  @media (min-width: 640px) { .br-md { display: inline; } }
+
+
+  /* ──────────────────────────────────────
+     HERO — mobile (< 768px)
+     Single column: text top, botanical centred below
+     Camera, annotations, scroll animation all hidden
+  ────────────────────────────────────── */
+
+  @media (max-width: 767px) {
+    .hero {
+      height: auto;         /* remove sticky scroll height */
+    }
+
+    .hero-sticky {
+      position: relative;   /* un-stick */
+      height: auto;
+      align-items: flex-start;
+      padding-top: 5rem;
+      padding-bottom: 4rem;
+    }
+
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      min-height: auto;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .hero-content {
+      max-width: 100%;
+    }
+
+    .hero-illustrations {
+      height: 55vw;          /* proportional fixed height on mobile */
+      width: 100%;
+    }
+
+    .hero-botanicals {
+      width: 70%;
+      left: 50%;
+      transform: translateX(-50%);
+      mix-blend-mode: multiply;
+    }
+
+    .hero-camera,
+    .hero-annotations {
+      display: none;
+    }
+  }
+
+  /* ──────────────────────────────────────
+     HERO — reduced motion
+     Show camera in final position, remove sticky scroll
+  ────────────────────────────────────── */
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-camera { transform: none; }
+    .hero { height: auto; }
+    .hero-sticky { position: relative; height: auto; }
+  }
+
+
+  /* ──────────────────────────────────────
+     SECTION COMMON
+  ────────────────────────────────────── */
+
+  .section-top-rule { margin-bottom: 2.5rem; }
+  .section-label    { margin-bottom: 3rem; }
+
+
+  /* ──────────────────────────────────────
+     ABOUT
+  ────────────────────────────────────── */
+
+  .about { padding-top: 5rem; }
+  @media (min-width: 768px) { .about { padding-top: 6rem; } }
+
+  .about-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .about-body { grid-template-columns: 3fr 2fr; gap: 5rem; }
+  }
+
+  .about-text h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-lead {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+  }
+
+  .about-text p { margin-bottom: 1.25rem; }
+
+  .about-credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .credentials-block {
+    border-top: 1px solid var(--color-rule-light);
+    padding-top: 1rem;
+  }
+
+  .credentials-block dt {
+    display: block;
+    margin-bottom: 0.9rem;
+  }
+
+  .credentials-block dd {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+  }
+
+  .credentials-block dd.credentials-institution {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-top: 0.3rem;
+  }
+
+
+  /* ──────────────────────────────────────
+     SERVICES
+  ────────────────────────────────────── */
+
+  .services-list { display: flex; flex-direction: column; }
+
+  .service-item {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: 0 2rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--color-rule-light);
+  }
+
+  .service-item:first-of-type { border-top: 1px solid var(--color-rule-light); }
+
+  .service-number { padding-top: 0.3rem; }
+
+  .service-content h3 {
+    font-size: clamp(1.3rem, 2.5vw, 1.65rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .service-content p { max-width: 580px; margin-bottom: 0.75rem; }
+
+  @media (max-width: 480px) {
+    .service-item {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      padding: 2.5rem 0;
+    }
+  }
+
+
+  /* ──────────────────────────────────────
+     CLIENTS
+  ────────────────────────────────────── */
+
+  .clients-list { list-style: none; display: flex; flex-direction: column; }
+
+  .client-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-rule-light);
+    gap: 1.5rem;
+  }
+
+  .client-item:first-child { border-top: 1px solid var(--color-rule-light); }
+
+  .client-name {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--color-text);
+    font-weight: 400;
+  }
+
+  .client-item .annotation { text-align: right; flex-shrink: 0; }
+
+  @media (max-width: 480px) {
+    .client-item { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
+    .client-item .annotation { text-align: left; }
+  }
+
+
+  /* ──────────────────────────────────────
+     CONTACT
+  ────────────────────────────────────── */
+
+  .contact-inner { display: grid; grid-template-columns: 1fr; gap: 4rem; }
+
+  @media (min-width: 768px) {
+    .contact-inner { grid-template-columns: 1fr 1fr; gap: 6rem; align-items: end; }
+  }
+
+  .contact-text .section-label { margin-bottom: 1.5rem; }
+
+  .contact-text h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-text p { margin-bottom: 1rem; max-width: 400px; }
+
+  .contact-action { padding-bottom: 0.5rem; }
+
+  .cta-link {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    color: var(--color-text);
+    transition: color 0.2s ease;
+  }
+
+  .cta-email {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 400;
+    border-bottom: 1px solid var(--color-rule);
+    padding-bottom: 0.3rem;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .cta-link:hover .cta-email {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .cta-prompt {
+    color: var(--color-annotation);
+    transition: color 0.2s ease;
+  }
+
+  .cta-link:hover .cta-prompt { color: var(--color-accent); }
+
+
+  /* ──────────────────────────────────────
+     FOOTER
+  ────────────────────────────────────── */
+
+  .footer { padding: 3rem 0; }
+  .footer hr { margin-bottom: 1.5rem; }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .footer-left {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-social a {
+    color: var(--annotation-ink);
+    transition: color 0.2s ease;
+  }
+
+  .footer-social a:hover {
+    color: var(--color-accent);
+  }
+
+</style>
+
+
+<script>
+  // Legacy data-reveal observer (hero stagger, about/services)
+  const dataReveals = document.querySelectorAll('[data-reveal]');
+  if (dataReveals.length) {
+    const legacyObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            legacyObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -48px 0px' }
+    );
+    dataReveals.forEach((el) => legacyObserver.observe(el));
+  }
+
+  // Unified scroll animation observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        if (el.dataset.delay) {
+          el.style.transitionDelay = el.dataset.delay + 'ms';
+        }
+        el.classList.add('visible');
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .rule-reveal, .client-reveal')
+    .forEach(el => observer.observe(el));
+</script>
+
+
+<script>
+// ─── Hero Scroll-Driven Animation ─────────────────────────────────────────────
+//
+// Architecture:
+//   - .hero is 250vh tall; .hero-sticky is position:sticky so it pins in viewport
+//   - scrollProgress = (-heroRect.top) / (heroH - viewH)  → 0..1
+//   - Each animation maps to a sub-range of that progress value
+//   - Camera:      progress 0.20–0.50 → translateX(110% → 0%)
+//   - PlantLines:  progress 0.50–0.72 → strokeDashoffset full→0 per line (staggered)
+//   - CameraLines: progress 0.72–1.00 → strokeDashoffset full→0 per line (staggered)
+//
+// On mobile (< 768px) or prefers-reduced-motion: entire block exits early.
+// ─────────────────────────────────────────────────────────────────────────────
+
+(function () {
+  if (window.matchMedia('(max-width: 767px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const hero     = document.getElementById('hero') as HTMLElement | null;
+  const camera   = document.querySelector('.hero-camera') as HTMLElement | null;
+  const annoSvg  = document.querySelector('.hero-annotations') as SVGSVGElement | null;
+  const ilPanel  = document.querySelector('.hero-illustrations') as HTMLElement | null;
+
+  if (!hero || !camera || !annoSvg || !ilPanel) return;
+
+  // ── Constants ───────────────────────────────────────────────────────────────
+
+  // Font size is computed inside buildAnnotations() so it adapts on resize.
+  const ANNO_COLOR  = '#8B7355';
+  const ANNO_WEIGHT = '0.8';
+
+  // Progress segments
+  const CAM_START    = 0.20;
+  const CAM_END      = 0.50;
+  const PLANT_START  = 0.50;
+  const PLANT_END    = 0.72;
+  const CAMERA_START = 0.72;
+  const CAMERA_END   = 1.00;
+
+  // ── Annotation definitions ───────────────────────────────────────────────────
+  //
+  // Coordinates are fractions of the illustration panel (ilPanel.clientWidth × clientHeight).
+  // x1,y1 = line start (on the illustration); x2,y2 = line end (label anchor)
+  //
+  // PLANT: straight lines from plant regions to labels in clear space (left margin)
+  // CAMERA: lines radiating from approximate lens position outward
+
+  type AnnoLine = {
+    x1: number; y1: number;
+    x2: number; y2: number;
+    label: string;
+    labelAnchor: 'start' | 'end';
+    labelDx: number;
+    labelDy: number;
+    group: 'plant' | 'camera';
+  };
+
+  const ANNOTATIONS: AnnoLine[] = [
+    // ── Plant annotations ────────────────────────────────────────────────────
+    // Top: thistle flower head
+    {
+      x1: 0.30, y1: 0.08,
+      x2: 0.05, y2: 0.06,
+      label: 'Cirsium vulgare',
+      labelAnchor: 'end', labelDx: -6, labelDy: 0,
+      group: 'plant',
+    },
+    // Upper-middle: heather
+    {
+      x1: 0.28, y1: 0.28,
+      x2: 0.04, y2: 0.22,
+      label: 'Calluna vulgaris',
+      labelAnchor: 'end', labelDx: -6, labelDy: 0,
+      group: 'plant',
+    },
+    // Lower-middle: bluebell
+    {
+      x1: 0.18, y1: 0.60,
+      x2: 0.03, y2: 0.55,
+      label: 'Hyacinthoides non-scripta',
+      labelAnchor: 'end', labelDx: -6, labelDy: 0,
+      group: 'plant',
+    },
+    // Lower: fern
+    {
+      x1: 0.40, y1: 0.72,
+      x2: 0.04, y2: 0.68,
+      label: 'Pteridium aquilinum',
+      labelAnchor: 'end', labelDx: -6, labelDy: 0,
+      group: 'plant',
+    },
+
+    // ── Camera geometry annotations ──────────────────────────────────────────
+    // Lens origin approx: (0.78, 0.55) of panel
+    {
+      x1: 0.78, y1: 0.55,
+      x2: 0.35, y2: 0.10,
+      label: 'angle of observation',
+      labelAnchor: 'end', labelDx: -6, labelDy: -4,
+      group: 'camera',
+    },
+    {
+      x1: 0.78, y1: 0.55,
+      x2: 0.20, y2: 0.52,
+      label: 'observed distance',
+      labelAnchor: 'end', labelDx: -6, labelDy: -4,
+      group: 'camera',
+    },
+    {
+      x1: 0.78, y1: 0.55,
+      x2: 0.78, y2: 0.08,
+      label: 'focal plane',
+      labelAnchor: 'start', labelDx: 6, labelDy: 0,
+      group: 'camera',
+    },
+  ];
+
+  // ── Build SVG elements ───────────────────────────────────────────────────────
+  // annoSvgEl passed explicitly to avoid TS closure null-narrowing issues.
+
+  type AnnoElement = {
+    path: SVGPathElement;
+    dot:  SVGCircleElement;
+    text: SVGTextElement;
+    length: number;
+    group: 'plant' | 'camera';
+  };
+
+  function buildAnnotations(annoSvgEl: SVGSVGElement, panelEl: HTMLElement): AnnoElement[] {
+    const w = panelEl.clientWidth;
+    const h = panelEl.clientHeight;
+    // Font size scales with panel width, clamped 9–12px
+    const fontSize = Math.max(9, Math.min(12, w * 0.022));
+    const annoFont = `italic ${fontSize}px 'Playfair Display', Georgia, serif`;
+    const els: AnnoElement[] = [];
+
+    ANNOTATIONS.forEach((def) => {
+      const x1 = w * def.x1;
+      const y1 = h * def.y1;
+      const x2 = w * def.x2;
+      const y2 = h * def.y2;
+
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+      // Straight line
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M ${x1} ${y1} L ${x2} ${y2}`);
+      path.setAttribute('stroke', ANNO_COLOR);
+      path.setAttribute('stroke-width', ANNO_WEIGHT);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('vector-effect', 'non-scaling-stroke');
+      g.appendChild(path);
+
+      annoSvgEl.appendChild(g);
+      const len = path.getTotalLength();
+      path.style.strokeDasharray  = String(len);
+      path.style.strokeDashoffset = String(len); // fully hidden initially
+
+      // Endpoint dot
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('cx', String(x2));
+      dot.setAttribute('cy', String(y2));
+      dot.setAttribute('r', '1.8');
+      dot.setAttribute('fill', ANNO_COLOR);
+      dot.style.opacity = '0';
+      g.appendChild(dot);
+
+      // Label — Playfair Display italic, size adapts to panel width
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', String(x2 + def.labelDx));
+      text.setAttribute('y', String(y2 + def.labelDy - 4));
+      text.setAttribute('text-anchor', def.labelAnchor);
+      text.setAttribute('fill', ANNO_COLOR);
+      text.style.cssText = `font: ${annoFont}; opacity: 0;`;
+      text.textContent   = def.label;
+      g.appendChild(text);
+
+      els.push({ path, dot, text, length: len, group: def.group });
+    });
+
+    return els;
+  }
+
+  // ── Progress helpers ─────────────────────────────────────────────────────────
+
+  // Map global progress p through sub-range [start, end] → 0..1 clamped
+  function subProgress(p: number, start: number, end: number): number {
+    return Math.max(0, Math.min(1, (p - start) / (end - start)));
+  }
+
+  // ── Apply frame ──────────────────────────────────────────────────────────────
+
+  function applyFrame(progress: number, annoEls: AnnoElement[]) {
+    // Camera: slide in from right (ease-out cubic)
+    const camP    = subProgress(progress, CAM_START, CAM_END);
+    const camEase = 1 - Math.pow(1 - camP, 3);
+    camera!.style.transform = `translateX(${(1 - camEase) * 110}%)`;
+
+    // Plant annotation lines (staggered sequentially)
+    const plantP  = subProgress(progress, PLANT_START, PLANT_END);
+    const plantEls = annoEls.filter(e => e.group === 'plant');
+    const nPlant   = plantEls.length;
+    plantEls.forEach((el, i) => {
+      const lineP    = subProgress(plantP, i / nPlant, (i + 0.8) / nPlant);
+      const lineEase = 1 - Math.pow(1 - lineP, 2);
+      el.path.style.strokeDashoffset = String(el.length * (1 - lineEase));
+      // Dot + label fade in when line is ~80% drawn
+      const show = lineP > 0.75 ? Math.min(1, (lineP - 0.75) / 0.25) : 0;
+      el.dot.style.opacity  = String(show * 0.85);
+      el.text.style.opacity = String(show * 0.85);
+    });
+
+    // Camera geometry lines (staggered sequentially)
+    const camLineP  = subProgress(progress, CAMERA_START, CAMERA_END);
+    const cameraEls = annoEls.filter(e => e.group === 'camera');
+    const nCamera   = cameraEls.length;
+    cameraEls.forEach((el, i) => {
+      const lineP    = subProgress(camLineP, i / nCamera, (i + 0.8) / nCamera);
+      const lineEase = 1 - Math.pow(1 - lineP, 2);
+      el.path.style.strokeDashoffset = String(el.length * (1 - lineEase));
+      const show = lineP > 0.75 ? Math.min(1, (lineP - 0.75) / 0.25) : 0;
+      el.dot.style.opacity  = String(show * 0.75);
+      el.text.style.opacity = String(show * 0.75);
+    });
+  }
+
+  // ── RAF scroll loop ──────────────────────────────────────────────────────────
+
+  let annoEls: AnnoElement[] = [];
+  let rafId = 0;
+  let lastProgress = -1;
+
+  function tick() {
+    const heroRect = hero!.getBoundingClientRect();
+
+    // Short-circuit: hero fully above or below viewport
+    if (heroRect.bottom <= 0 || heroRect.top >= window.innerHeight) {
+      rafId = requestAnimationFrame(tick);
+      return;
+    }
+
+    const heroH    = hero!.offsetHeight;
+    const viewH    = window.innerHeight;
+    const scrolled = -heroRect.top;           // 0 at top of hero
+    const scrollMax = heroH - viewH;
+    const progress = Math.max(0, Math.min(1, scrolled / scrollMax));
+
+    if (Math.abs(progress - lastProgress) > 0.0005) {
+      lastProgress = progress;
+      applyFrame(progress, annoEls);
+    }
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  // ── Init ─────────────────────────────────────────────────────────────────────
+
+  function init() {
+    annoEls = buildAnnotations(annoSvg!, ilPanel!);
+    tick();
+  }
+
+  if (document.readyState === 'complete') {
+    init();
+  } else {
+    window.addEventListener('load', init, { once: true });
+  }
+
+  // Rebuild on resize (SVG coordinates are based on panel size at build time)
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      cancelAnimationFrame(rafId);
+      while (annoSvg!.firstChild) annoSvg!.removeChild(annoSvg!.firstChild);
+      const isMobile  = window.matchMedia('(max-width: 767px)').matches;
+      const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!isMobile && !isReduced) {
+        init();
+      } else {
+        camera!.style.transform = '';
+      }
+    }, 200);
+  });
+
+})();
+</script>
