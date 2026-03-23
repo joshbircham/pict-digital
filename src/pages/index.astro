@@ -498,7 +498,7 @@ import Navigation from '../components/Navigation.astro';
     mix-blend-mode: multiply;
     pointer-events: none;
     z-index: 2;
-    transform: translateX(110%);   /* off-screen initial state */
+    transform: translateX(100vw);   /* off-screen initial state — JS replaces with px calc */
     will-change: transform;
   }
 
@@ -1044,7 +1044,7 @@ import Navigation from '../components/Navigation.astro';
     // Camera: slide in from right (ease-out cubic)
     const camP    = subProgress(progress, CAM_START, CAM_END);
     const camEase = 1 - Math.pow(1 - camP, 3);
-    camera!.style.transform = `translateX(${(1 - camEase) * 110}%)`;
+    camera!.style.transform = `translateX(${(1 - camEase) * offScreenPx}px)`;
 
     // Plant annotation lines (staggered sequentially)
     const plantP  = subProgress(progress, PLANT_START, PLANT_END);
@@ -1079,6 +1079,8 @@ import Navigation from '../components/Navigation.astro';
   let annoEls: AnnoElement[] = [];
   let rafId = 0;
   let lastProgress = -1;
+  // Pixels needed to push camera fully off-screen right; computed once in init()
+  let offScreenPx = window.innerWidth;
 
   function tick() {
     const heroRect = hero!.getBoundingClientRect();
@@ -1106,6 +1108,9 @@ import Navigation from '../components/Navigation.astro';
   // ── Init ─────────────────────────────────────────────────────────────────────
 
   function init() {
+    // Compute exact pixels to push camera past viewport right edge (read layout once)
+    const panelRect = ilPanel!.getBoundingClientRect();
+    offScreenPx = window.innerWidth - panelRect.right + camera!.offsetWidth + 40;
     annoEls = buildAnnotations(annoSvg!, ilPanel!);
     tick();
   }
