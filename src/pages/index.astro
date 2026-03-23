@@ -902,58 +902,63 @@ import Navigation from '../components/Navigation.astro';
 
   const ANNOTATIONS: AnnoLine[] = [
     // ── Plant annotations ────────────────────────────────────────────────────
-    // Top: thistle flower head
+    // Botanical spans panel: x=[0, 0.620], y=[0.725, 1.000]
+    // x1,y1 = measured plant position in panel fractions
+    // x2,y2 = label anchor in clear space above botanical
+
+    // Cirsium vulgare (thistle) — top-center of botanical
     {
-      x1: 0.30, y1: 0.08,
+      x1: 0.22, y1: 0.752,
       x2: 0.05, y2: 0.06,
       label: 'Cirsium vulgare',
       labelAnchor: 'end', labelDx: -6, labelDy: 0,
       group: 'plant',
     },
-    // Upper-middle: heather
+    // Calluna vulgaris (heather) — upper-right of botanical
     {
-      x1: 0.28, y1: 0.28,
-      x2: 0.04, y2: 0.22,
+      x1: 0.42, y1: 0.810,
+      x2: 0.05, y2: 0.25,
       label: 'Calluna vulgaris',
       labelAnchor: 'end', labelDx: -6, labelDy: 0,
       group: 'plant',
     },
-    // Lower-middle: bluebell
+    // Hyacinthoides non-scripta (bluebell) — left side of botanical
     {
-      x1: 0.18, y1: 0.60,
-      x2: 0.03, y2: 0.55,
+      x1: 0.13, y1: 0.865,
+      x2: 0.05, y2: 0.46,
       label: 'Hyacinthoides non-scripta',
       labelAnchor: 'end', labelDx: -6, labelDy: 0,
       group: 'plant',
     },
-    // Lower: fern
+    // Pteridium aquilinum (bracken fern) — lower botanical
     {
-      x1: 0.40, y1: 0.72,
-      x2: 0.04, y2: 0.68,
+      x1: 0.38, y1: 0.928,
+      x2: 0.05, y2: 0.64,
       label: 'Pteridium aquilinum',
       labelAnchor: 'end', labelDx: -6, labelDy: 0,
       group: 'plant',
     },
 
     // ── Camera geometry annotations ──────────────────────────────────────────
-    // Lens origin approx: (0.78, 0.55) of panel
+    // Camera spans panel: x=[0.480, 1.000], y=[0.780, 1.000]
+    // Lens approx at panel (0.575, 0.868) — front standard of large-format camera
     {
-      x1: 0.78, y1: 0.55,
-      x2: 0.35, y2: 0.10,
+      x1: 0.575, y1: 0.868,
+      x2: 0.30,  y2: 0.14,
       label: 'angle of observation',
       labelAnchor: 'end', labelDx: -6, labelDy: -4,
       group: 'camera',
     },
     {
-      x1: 0.78, y1: 0.55,
-      x2: 0.20, y2: 0.52,
+      x1: 0.575, y1: 0.868,
+      x2: 0.16,  y2: 0.68,
       label: 'observed distance',
       labelAnchor: 'end', labelDx: -6, labelDy: -4,
       group: 'camera',
     },
     {
-      x1: 0.78, y1: 0.55,
-      x2: 0.78, y2: 0.08,
+      x1: 0.575, y1: 0.868,
+      x2: 0.65,  y2: 0.28,
       label: 'focal plane',
       labelAnchor: 'start', labelDx: 6, labelDy: 0,
       group: 'camera',
