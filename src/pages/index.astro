@@ -408,30 +408,37 @@ import Navigation from '../components/Navigation.astro';
     top: 0;
     height: 100vh;
     overflow: hidden;
-    display: flex;
-    align-items: center;
     /* z-index:1 keeps hero below the fixed nav (z-index:100).
        Without this, Safari can render sticky panels above fixed elements. */
     z-index: 1;
   }
 
+  /* Full-bleed right: remove container max-width cap so the illustrations
+     column can expand to the viewport edge, giving it ~656px on 1440px screens
+     vs the constrained ~462px it had inside the 1100px container. */
   .hero-sticky .container {
-    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    padding-left: clamp(1.5rem, 5.8vw, 4rem);
+    padding-right: 0;
+    margin: 0;
   }
 
   /* Two-column grid */
   .hero-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    min-height: 100vh;
-    padding-top: 5rem;   /* clear fixed nav */
-    padding-bottom: 3rem;
+    gap: 4rem;
+    align-items: stretch;   /* both columns fill full viewport height */
+    height: 100%;
   }
 
   /* ── LEFT: text ── */
   .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 3.5rem;   /* clear fixed nav */
     max-width: 520px;
   }
 
@@ -468,16 +475,18 @@ import Navigation from '../components/Navigation.astro';
   /* ── RIGHT: illustration panel ── */
   .hero-illustrations {
     position: relative;
-    height: 100vh;
+    height: 100%;   /* fills the full viewport height via stretch grid */
     overflow: visible;
   }
 
-  /* Botanical — left side of panel, bottom-anchored */
+  /* Botanical — left 60% of panel, bottom-anchored.
+     At full-bleed 1440px: panel ≈ 656px → botanical ≈ 394px wide × 459px tall (51% vh).
+     Camera occupies right 40% (394–656px), so they meet edge-to-edge — no overlap. */
   .hero-botanicals {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 62%;
+    width: 60%;
     height: auto;
     object-fit: contain;
     object-position: bottom left;
@@ -486,12 +495,13 @@ import Navigation from '../components/Navigation.astro';
     z-index: 1;
   }
 
-  /* Camera — right side of panel, bottom-anchored, starts off-screen right */
+  /* Camera — right 40% of panel, bottom-anchored, starts off-screen right.
+     Left edge sits at 60% of panel, so it never overlaps the botanical. */
   .hero-camera {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 52%;
+    width: 40%;
     height: auto;
     object-fit: contain;
     object-position: bottom right;
@@ -875,12 +885,14 @@ import Navigation from '../components/Navigation.astro';
   const ANNO_WEIGHT = '0.8';
 
   // Progress segments
-  const CAM_START    = 0.20;
-  const CAM_END      = 0.50;
-  const PLANT_START  = 0.50;
-  const PLANT_END    = 0.72;
-  const CAMERA_START = 0.72;
-  const CAMERA_END   = 1.00;
+  // Camera starts moving on the very first scroll pixel — direct 1:1 feel.
+  // Plant labels draw while camera is arriving; geometry lines follow.
+  const CAM_START    = 0.00;
+  const CAM_END      = 0.35;
+  const PLANT_START  = 0.28;
+  const PLANT_END    = 0.54;
+  const CAMERA_START = 0.50;
+  const CAMERA_END   = 0.80;
 
   // ── Annotation definitions ───────────────────────────────────────────────────
   //
@@ -902,21 +914,22 @@ import Navigation from '../components/Navigation.astro';
 
   const ANNOTATIONS: AnnoLine[] = [
     // ── Plant annotations ────────────────────────────────────────────────────
-    // Botanical spans panel: x=[0, 0.620], y=[0.725, 1.000]
-    // x1,y1 = measured plant position in panel fractions
+    // New panel ≈ 656px wide (full-bleed). Botanical: width=60%, height≈460px on 900vh.
+    // Botanical spans panel: x=[0, 0.60], y=[0.489, 1.000]
+    // x1,y1 = plant position in panel fractions (remapped from old 462px panel)
     // x2,y2 = label anchor in clear space above botanical
 
     // Cirsium vulgare (thistle) — top-center of botanical
     {
-      x1: 0.22, y1: 0.752,
-      x2: 0.05, y2: 0.06,
+      x1: 0.21, y1: 0.660,
+      x2: 0.08, y2: 0.13,   /* y2 raised from 0.06 → keeps label below the fixed nav */
       label: 'Cirsium vulgare',
       labelAnchor: 'end', labelDx: -6, labelDy: 0,
       group: 'plant',
     },
     // Calluna vulgaris (heather) — upper-right of botanical
     {
-      x1: 0.42, y1: 0.810,
+      x1: 0.40, y1: 0.740,
       x2: 0.05, y2: 0.25,
       label: 'Calluna vulgaris',
       labelAnchor: 'end', labelDx: -6, labelDy: 0,
@@ -924,7 +937,7 @@ import Navigation from '../components/Navigation.astro';
     },
     // Hyacinthoides non-scripta (bluebell) — left side of botanical
     {
-      x1: 0.13, y1: 0.865,
+      x1: 0.13, y1: 0.815,
       x2: 0.05, y2: 0.46,
       label: 'Hyacinthoides non-scripta',
       labelAnchor: 'end', labelDx: -6, labelDy: 0,
@@ -932,7 +945,7 @@ import Navigation from '../components/Navigation.astro';
     },
     // Pteridium aquilinum (bracken fern) — lower botanical
     {
-      x1: 0.38, y1: 0.928,
+      x1: 0.37, y1: 0.900,
       x2: 0.05, y2: 0.64,
       label: 'Pteridium aquilinum',
       labelAnchor: 'end', labelDx: -6, labelDy: 0,
@@ -940,25 +953,25 @@ import Navigation from '../components/Navigation.astro';
     },
 
     // ── Camera geometry annotations ──────────────────────────────────────────
-    // Camera spans panel: x=[0.480, 1.000], y=[0.780, 1.000]
-    // Lens approx at panel (0.575, 0.868) — front standard of large-format camera
+    // Camera spans panel: x=[0.60, 1.000], y=[0.676, 1.000]
+    // Lens approx at panel (0.673, 0.856) — front standard of large-format camera
     {
-      x1: 0.575, y1: 0.868,
-      x2: 0.30,  y2: 0.14,
+      x1: 0.673, y1: 0.856,
+      x2: 0.42,  y2: 0.18,
       label: 'angle of observation',
       labelAnchor: 'end', labelDx: -6, labelDy: -4,
       group: 'camera',
     },
     {
-      x1: 0.575, y1: 0.868,
-      x2: 0.16,  y2: 0.68,
+      x1: 0.673, y1: 0.856,
+      x2: 0.48,  y2: 0.62,
       label: 'observed distance',
       labelAnchor: 'end', labelDx: -6, labelDy: -4,
       group: 'camera',
     },
     {
-      x1: 0.575, y1: 0.868,
-      x2: 0.65,  y2: 0.28,
+      x1: 0.673, y1: 0.856,
+      x2: 0.80,  y2: 0.28,   /* x2 pulled left to keep label within viewport */
       label: 'focal plane',
       labelAnchor: 'start', labelDx: 6, labelDy: 0,
       group: 'camera',
