@@ -280,46 +280,79 @@ import Navigation from '../components/Navigation.astro';
 
 
   /* ──────────────────────────────────────
-     SCROLL SLIDE-IN
-     Left-aligned elements slide from left;
-     right-aligned elements slide from right.
-     Rules draw width from left to right.
+     SCROLL-DRIVEN SLIDE-IN
+     animation-timeline: view() makes scroll position literally drive the
+     animation — slow scroll = slow reveal; scroll back = partially reverses.
+     animation-range: entry 0% entry 50% plays the full animation while
+     the element travels through the first half of its entry into the viewport.
   ────────────────────────────────────── */
 
-  [data-slide] {
-    opacity: 0;
-    transform: translateX(-56px);
-    transition:
-      opacity   0.55s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: calc(var(--stagger, 0) * 70ms);
+  @keyframes slide-from-left {
+    from { opacity: 0; transform: translateX(-130px); }
+    to   { opacity: 1; transform: translateX(0); }
   }
 
-  [data-slide="right"] {
-    transform: translateX(56px);
+  @keyframes slide-from-right {
+    from { opacity: 0; transform: translateX(130px); }
+    to   { opacity: 1; transform: translateX(0); }
   }
 
-  [data-slide].in-view {
-    opacity: 1;
-    transform: translateX(0);
+  @keyframes rule-draw {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
   }
 
-  /* Rules extend from left */
-  .rule-slide {
-    transform-origin: left center;
-    transform: scaleX(0);
-    transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Primary: CSS scroll-driven (Chrome 115+, Safari 17.4+, Firefox 114+) */
+  @supports (animation-timeline: view()) {
+    [data-slide] {
+      animation: slide-from-left linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 50%;
+    }
+
+    [data-slide="right"] {
+      animation-name: slide-from-right;
+    }
+
+    .rule-slide {
+      transform-origin: left center;
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
   }
 
-  .rule-slide.in-view {
-    transform: scaleX(1);
+  /* Fallback: trigger-based transition for older browsers */
+  @supports not (animation-timeline: view()) {
+    [data-slide] {
+      opacity: 0;
+      transform: translateX(-130px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-slide="right"] { transform: translateX(130px); }
+
+    [data-slide].in-view {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .rule-slide {
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .rule-slide.in-view { transform: scaleX(1); }
   }
 
   @media (prefers-reduced-motion: reduce) {
     [data-slide], .rule-slide {
-      opacity: 1;
-      transform: none;
-      transition: none;
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
     }
   }
 
@@ -593,18 +626,16 @@ import Navigation from '../components/Navigation.astro';
 
 
 <script>
-  // Scroll slide-in: left-aligned from left, right-aligned from right, rules extend width
-  const slideObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        slideObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-
-  document.querySelectorAll('[data-slide], .rule-slide')
-    .forEach(el => slideObserver.observe(el));
+  // Scroll-driven animations via CSS animation-timeline: view() on modern browsers.
+  // IntersectionObserver fallback for browsers that don't support it yet.
+  if (!CSS.supports('animation-timeline', 'view()')) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+    document.querySelectorAll('[data-slide], .rule-slide').forEach(el => obs.observe(el));
+  }
 </script>
 
 
