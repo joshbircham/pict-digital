@@ -1,23 +1,201 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+const { title = 'Pict Digital', description = 'Boutique creative consultancy based in Aberdeen, Scotland. Narrative video, creative campaigns, and place-based storytelling.', image } = Astro.props;
+const ogImage = image ? new URL(image, Astro.site).toString() : new URL('/images/pict-forest-image.jpg', Astro.site).toString();
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  :root {
+    --color-bg:           #F9F9F7;
+    --color-text:         #1a1714;
+    --color-text-muted:   #726d66;
+    --color-accent:       #9c7040;
+    --color-accent-hover: #7d5a30;
+    --color-rule:         #1a1714;
+    --color-rule-light:   #d4ccc0;
+    --color-annotation:   #a09890;
+    --annotation-ink:     #8B7355;
+    --annotation-rule:    #C4B89A;
+
+    --font-display: 'Big Shoulders Display', sans-serif;
+    --font-serif:   'Playfair Display', Georgia, serif;
+    --font-sans:    'Inter', system-ui, sans-serif;
+
+    --container-max: 1100px;
+    --space-xs:  0.5rem;
+    --space-sm:  1rem;
+    --space-md:  2rem;
+    --space-lg:  4rem;
+    --space-xl:  6rem;
+    --space-2xl: 7rem;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 640px)  { .container { padding: 0 2.5rem; } }
+  @media (min-width: 1024px) { .container { padding: 0 4rem;   } }
+
+  /* ── Typography ── */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--color-text);
+  }
+
+  p {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Inline prose links — distinct from nav/UI links */
+  p a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+    text-underline-offset: 0.2em;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+
+  p a:hover {
+    color: var(--color-accent-hover);
+    text-decoration-color: var(--color-accent-hover);
+  }
+
+  /* ── Utilities ── */
+  .label {
+    font-family: var(--font-serif);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-annotation);
+  }
+
+  .section-label {
+    font-family: var(--font-serif);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    display: block;
+  }
+
+  .annotation {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-annotation);
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  hr.rule--light {
+    border-top-color: var(--color-rule-light);
+  }
+
+  .fig-label {
+    font-family: var(--font-serif);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--annotation-ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fig-label::after {
+    content: '';
+    flex: 1;
+    border-top: 0.5px solid var(--annotation-rule);
+  }
+
+  .specimen-label {
+    font-family: var(--font-serif);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--annotation-ink);
+  }
+
+  .section {
+    padding: var(--space-lg) 0;
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding: var(--space-xl) 0;
+    }
+  }
 </style>

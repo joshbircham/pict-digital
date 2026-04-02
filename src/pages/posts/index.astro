@@ -1,0 +1,135 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+}
+---
+
+<Layout
+  title="Posts | Pict Digital"
+  description="Writing on digital marketing, content creation, narrative video, and creative strategy from Josh Bircham."
+>
+  <Navigation />
+
+  <main>
+    <header class="page-header">
+      <div class="container">
+        <a href="/" class="back-link specimen-label">← Pict Digital</a>
+        <h1>Posts</h1>
+        <p class="page-intro">Writing on strategy, content, and creative practice.</p>
+      </div>
+    </header>
+
+    <section class="posts-listing section">
+      <div class="container">
+        <hr class="rule rule--light" aria-hidden="true" />
+
+        {posts.map((post) => (
+          <article class="post-row">
+            <a href={`/posts/${post.id.replace(/\.(md|mdx)$/, '')}`} class="post-row-link">
+              <div class="post-row-meta">
+                <span class="specimen-label post-category">{post.data.category}</span>
+                <time class="specimen-label post-date">{formatDate(post.data.date)}</time>
+              </div>
+              <div class="post-row-body">
+                <h2 class="post-row-title">{post.data.title}</h2>
+                <p class="post-row-excerpt">{post.data.description}</p>
+              </div>
+              <span class="post-row-read specimen-label">Read →</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .page-header {
+    padding-top: 6rem;
+    padding-bottom: var(--space-md);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-annotation);
+    margin-bottom: 2rem;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover { color: var(--color-accent); }
+
+  .page-header h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+
+  .page-intro {
+    max-width: 480px;
+  }
+
+  .posts-listing { padding-top: 0; }
+
+  .post-row {
+    border-bottom: 1px solid var(--color-rule-light);
+  }
+
+  .post-row-link {
+    display: grid;
+    grid-template-columns: 14rem 1fr auto;
+    gap: 2rem 3rem;
+    align-items: center;
+    padding: 2rem 0;
+    color: inherit;
+    transition: color 0.15s ease;
+  }
+
+  .post-row-link:hover .post-row-title { color: var(--color-accent); }
+  .post-row-link:hover .post-row-read  { color: var(--color-accent); }
+
+  .post-row-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .post-category { color: var(--color-accent); }
+  .post-date     { color: var(--color-annotation); }
+
+  .post-row-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin-bottom: 0.6rem;
+    transition: color 0.2s ease;
+  }
+
+  .post-row-excerpt {
+    font-size: 0.875rem;
+    max-width: 520px;
+  }
+
+  .post-row-read {
+    color: var(--annotation-ink);
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  @media (max-width: 767px) {
+    .post-row-link {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      padding: 1.75rem 0;
+    }
+    .post-row-meta { flex-direction: row; gap: 1rem; }
+    .post-row-read { display: none; }
+  }
+</style>

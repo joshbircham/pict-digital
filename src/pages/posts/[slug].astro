@@ -1,0 +1,229 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts
+    .filter((post: CollectionEntry<'posts'>) => !post.data.draft)
+    .map((post: CollectionEntry<'posts'>) => ({ params: { slug: post.id.replace(/\.(md|mdx)$/, '') }, props: { post } }));
+}
+
+interface Props { post: CollectionEntry<'posts'>; }
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+
+<Layout title={`${post.data.title} | Pict Digital`} description={post.data.description} image={post.data.featuredImage}>
+  <Navigation />
+
+  <main>
+    <article class="post-article">
+      <header class="post-header">
+        <div class="container">
+          <a href="/posts" class="back-link specimen-label">← All posts</a>
+          <div class="post-meta">
+            <span class="specimen-label post-category">{post.data.category}</span>
+            <time class="specimen-label post-date">{formatDate(post.data.date)}</time>
+          </div>
+          <h1 class="post-title">{post.data.title}</h1>
+          <p class="post-description">{post.data.description}</p>
+          <hr class="rule rule--light post-rule" aria-hidden="true" />
+        </div>
+      </header>
+
+      {post.data.featuredImage && (
+        <div class="post-featured-image container">
+          <img
+            src={post.data.featuredImage}
+            alt="A figure at a desk surrounded by handwritten story notes, seen from behind in warm amber light"
+            class="post-hero-img"
+          />
+        </div>
+      )}
+
+      <div class="post-body container">
+        <Content />
+      </div>
+
+      <footer class="post-footer container">
+        <hr class="rule rule--light" aria-hidden="true" />
+        <div class="post-footer-inner">
+          <a href="/posts" class="back-link specimen-label">← All posts</a>
+          <a href="/#contact" class="contact-link specimen-label">Get in touch →</a>
+        </div>
+      </footer>
+    </article>
+  </main>
+</Layout>
+
+<style>
+  .post-header {
+    padding-top: 6rem;
+    padding-bottom: var(--space-md);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-annotation);
+    margin-bottom: 2rem;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover { color: var(--color-accent); }
+
+  .post-meta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-category { color: var(--color-accent); }
+  .post-date     { color: var(--color-annotation); }
+
+  .post-title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    max-width: 720px;
+  }
+
+  .post-description {
+    font-size: 1.0625rem;
+    max-width: 580px;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .post-rule { margin-top: 2.5rem; }
+
+  /* Featured image */
+  .post-featured-image {
+    padding-bottom: var(--space-lg);
+  }
+
+  .post-hero-img {
+    display: block;
+    width: 100%;
+    max-width: 680px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--color-rule-light);
+  }
+
+  /* Body prose */
+  .post-body {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    max-width: 680px;
+  }
+
+  .post-body :global(h2) {
+    font-size: clamp(1.3rem, 2.5vw, 1.65rem);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .post-body :global(p) {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+
+  .post-body :global(ul),
+  .post-body :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-body :global(li) {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    margin-bottom: 0.4rem;
+  }
+
+  .post-body :global(blockquote) {
+    border-left: none;
+    border-top: 1px solid var(--color-accent);
+    padding: 0.85rem 0 0;
+    margin: 2rem 0 2.25rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--color-accent);
+  }
+
+  .post-body :global(blockquote p) {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-accent);
+    margin-bottom: 0;
+  }
+
+  /* Margin note layout — only where there's enough room */
+  @media (min-width: 1200px) {
+    .post-featured-image {
+      padding-left: 14rem;
+    }
+
+    .post-body {
+      padding-left: 14rem;
+      max-width: calc(680px + 14rem);
+    }
+
+    .post-body :global(blockquote) {
+      float: left;
+      clear: left;
+      width: 11.5rem;
+      margin-left: -13rem;
+      margin-right: 0;
+      margin-top: 0.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9375rem;
+    }
+  }
+
+  .post-body :global(li a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+    text-underline-offset: 0.2em;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+
+  .post-body :global(li a:hover) {
+    color: var(--color-accent-hover);
+    text-decoration-color: var(--color-accent-hover);
+  }
+
+  .post-body :global(strong) {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  /* Footer */
+  .post-footer {
+    padding-bottom: var(--space-xl);
+  }
+
+  .post-footer hr { margin-bottom: 2rem; }
+
+  .post-footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .contact-link {
+    color: var(--annotation-ink);
+    transition: color 0.2s ease;
+  }
+
+  .contact-link:hover { color: var(--color-accent); }
+</style>
