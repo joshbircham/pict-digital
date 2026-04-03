@@ -1,0 +1,202 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+---
+
+<Layout
+  title="Privacy Policy | Pict Digital"
+  description="Privacy policy for Pict Digital. How we use Google Analytics and handle your data."
+>
+  <Navigation />
+
+  <main>
+    <div class="privacy-page">
+      <div class="container">
+
+        <header class="privacy-header">
+          <a href="/" class="back-link specimen-label">← Pict Digital</a>
+          <span class="section-label">Privacy</span>
+          <h1>Privacy Policy</h1>
+          <p class="privacy-updated annotation">Last updated: April 2026</p>
+        </header>
+
+        <hr class="rule rule--light" aria-hidden="true" />
+
+        <div class="privacy-body">
+
+          <section class="privacy-section">
+            <h2>Overview</h2>
+            <p>
+              Pict Digital is a creative consultancy based in Aberdeen, Scotland. This policy explains how this website
+              (<a href="https://pictdigital.com">pictdigital.com</a>) handles data about its visitors. We keep things simple:
+              we collect only basic, anonymised analytics and we do not sell or share your personal data with any third party for commercial purposes.
+            </p>
+          </section>
+
+          <section class="privacy-section">
+            <h2>Analytics</h2>
+            <p>
+              This site uses <strong>Google Analytics 4</strong> (measurement ID: <code>G-RKGVH54XEV</code>) to understand
+              how visitors use the site — which pages are visited, how long people spend reading, and where traffic comes from.
+              This helps us improve the content and experience.
+            </p>
+            <p>
+              Google Analytics collects data such as your approximate location (country or region), browser type, device type,
+              and pages visited. This data is anonymised and aggregated — we cannot identify you individually from it.
+              IP addresses are anonymised by default in GA4.
+            </p>
+            <p>
+              Google Analytics data is processed by Google LLC, which acts as a data processor on our behalf.
+              Google may transfer this data outside the UK and EEA. For more information, see
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.
+            </p>
+          </section>
+
+          <section class="privacy-section">
+            <h2>Cookies</h2>
+            <p>
+              Google Analytics sets cookies in your browser to distinguish visitors and sessions. These are analytics cookies
+              and are not used for advertising or tracking across other websites.
+            </p>
+            <p>
+              You can opt out of Google Analytics tracking at any time by installing the
+              <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>,
+              or by adjusting your browser's cookie settings.
+            </p>
+          </section>
+
+          <section class="privacy-section">
+            <h2>Contact form</h2>
+            <p>
+              If you submit an enquiry via the contact form, your name, email address, and message are sent directly to us
+              via <a href="https://formspree.io" target="_blank" rel="noopener">Formspree</a>, a third-party form processing
+              service. This data is used solely to respond to your enquiry and is not stored beyond that purpose.
+              Formspree's own privacy policy applies to its handling of submitted data.
+            </p>
+          </section>
+
+          <section class="privacy-section">
+            <h2>What we do not do</h2>
+            <ul>
+              <li>We do not sell your personal data to any third party.</li>
+              <li>We do not use data collected on this site for advertising or remarketing.</li>
+              <li>We do not collect sensitive personal data.</li>
+              <li>We do not knowingly collect data from children under 13.</li>
+            </ul>
+          </section>
+
+          <section class="privacy-section">
+            <h2>Your rights</h2>
+            <p>
+              Under UK GDPR, you have the right to access, correct, or request deletion of any personal data we hold about you.
+              As we hold very little identifying data, most requests will relate to contact form submissions.
+              To exercise any of these rights, contact us at
+              <a href="mailto:hello@pictdigital.com">hello@pictdigital.com</a>.
+            </p>
+          </section>
+
+          <section class="privacy-section">
+            <h2>Changes to this policy</h2>
+            <p>
+              We may update this policy occasionally. Any changes will be reflected on this page with an updated date.
+            </p>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .privacy-page {
+    padding-top: 6rem;
+    padding-bottom: var(--space-2xl);
+  }
+
+  .privacy-header {
+    padding-bottom: var(--space-md);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-annotation);
+    margin-bottom: 2rem;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover { color: var(--color-accent); }
+
+  .privacy-header .section-label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .privacy-header h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .privacy-updated {
+    margin: 0;
+  }
+
+  .privacy-body {
+    padding-top: var(--space-md);
+    max-width: 680px;
+  }
+
+  .privacy-section {
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--color-rule-light);
+  }
+
+  .privacy-section:last-child {
+    border-bottom: none;
+  }
+
+  .privacy-section h2 {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .privacy-section p {
+    margin-bottom: 1rem;
+    line-height: 1.85;
+  }
+
+  .privacy-section p:last-child { margin-bottom: 0; }
+
+  .privacy-section ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .privacy-section li {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .privacy-section li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-annotation);
+  }
+
+  .privacy-section code {
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: var(--color-text);
+    background: color-mix(in srgb, var(--color-rule-light) 50%, transparent);
+    padding: 0.1em 0.4em;
+  }
+</style>

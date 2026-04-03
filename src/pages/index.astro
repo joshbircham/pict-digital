@@ -387,6 +387,7 @@ import Navigation from '../components/Navigation.astro';
             <span class="label">Pict Digital</span>
             <span class="label">Aberdeen | Scotland</span>
             <span class="label">© 2026</span>
+            <a href="/privacy" class="label footer-privacy">Privacy</a>
           </div>
           <nav class="footer-social" aria-label="Social links">
             <a href="https://www.instagram.com/pictdigital" class="specimen-label" target="_blank" rel="noopener">IG</a>
@@ -1287,6 +1288,13 @@ import Navigation from '../components/Navigation.astro';
   }
 
   .footer-social a:hover { color: var(--color-accent); }
+
+  .footer-privacy {
+    color: var(--color-annotation);
+    transition: color 0.2s ease;
+  }
+
+  .footer-privacy:hover { color: var(--color-accent); }
 </style>
 
 
