@@ -70,7 +70,7 @@ logMsg("Deploy started — ref: $ref, commit: " . ($data['after'] ?? 'unknown'))
 $shell = 'source ' . NODE_ENV . ' && cd ' . REPO_DIR;
 
 $steps = [
-    'git pull'       => "$shell && git pull origin main",
+    'git pull'       => "cd " . REPO_DIR . " && /usr/local/cpanel/3rdparty/lib/path-bin/git pull https://github.com/joshbircham/pict-digital.git main",
     'npm install'    => "$shell && npm install",
     'npm run build'  => "$shell && npm run build",
     'copy to webroot'=> "cp -r " . REPO_DIR . "/dist/. " . WEB_ROOT,
