@@ -1300,6 +1300,7 @@ import Navigation from '../components/Navigation.astro';
 
 <script>
   // Contact form — AJAX submit with fade transition
+  declare function gtag(...args: unknown[]): void;
   const contactForm = document.querySelector('.contact-form') as HTMLFormElement | null;
   contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -1312,6 +1313,7 @@ import Navigation from '../components/Navigation.astro';
       });
       if (res.ok) {
         form.reset();
+        gtag('event', 'generate_lead');
         const fields  = form.querySelector('.form-fields') as HTMLElement;
         const success = form.querySelector('.form-success') as HTMLElement;
         // Fade fields out
