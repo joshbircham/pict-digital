@@ -20,7 +20,7 @@ function abort(int $code, string $msg): never {
 }
 
 function run(string $cmd): array {
-    exec($cmd . ' 2>&1', $output, $exitCode);
+    exec('/bin/bash -c ' . escapeshellarg($cmd) . ' 2>&1', $output, $exitCode);
     return ['output' => implode("\n", $output), 'code' => $exitCode];
 }
 
