@@ -67,23 +67,9 @@ if ($ref !== 'refs/heads/main') {
 // ── Deploy ────────────────────────────────────────────────────────────────────
 logMsg("Deploy started — ref: $ref, commit: " . ($data['after'] ?? 'unknown'));
 
-$shell = 'source ' . NODE_ENV . ' && cd ' . REPO_DIR;
-
-$steps = [
-    'git pull'       => "cd " . REPO_DIR . " && /usr/local/cpanel/3rdparty/lib/path-bin/git pull https://github.com/joshbircham/pict-digital.git main",
-    'npm install'    => "$shell && npm install",
-    'npm run build'  => "$shell && npm run build",
-    'copy to webroot'=> "cp -r " . REPO_DIR . "/dist/. " . WEB_ROOT,
-];
-
-foreach ($steps as $label => $cmd) {
-    $result = run($cmd);
-    logMsg("[$label] exit={$result['code']} — {$result['output']}");
-    if ($result['code'] !== 0) {
-        abort(500, "Deploy failed at: $label");
-    }
-}
-
-logMsg("Deploy complete");
+$testCmd = '/bin/bash -c ' . escapeshellarg('cd ' . REPO_DIR . ' && /usr/local/cpanel/3rdparty/lib/path-bin/git status 2>&1');
+$result = run($testCmd);
+logMsg("Git status test — exit={$result['code']} output={$result['output']}");
 http_response_code(200);
-echo 'Deployed';
+echo 'Debug complete';
+exit;
