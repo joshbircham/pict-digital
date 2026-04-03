@@ -67,9 +67,11 @@ if ($ref !== 'refs/heads/main') {
 // ── Deploy ────────────────────────────────────────────────────────────────────
 logMsg("Deploy started — ref: $ref, commit: " . ($data['after'] ?? 'unknown'));
 
-$testCmd = '/bin/bash -c ' . escapeshellarg('cd ' . REPO_DIR . ' && /usr/local/cpanel/3rdparty/lib/path-bin/git status 2>&1');
+$disabled = ini_get('disable_functions');
+logMsg("Disabled functions: " . $disabled);
+$testCmd = 'echo hello';
 $result = run($testCmd);
-logMsg("Git status test — exit={$result['code']} output={$result['output']}");
+logMsg("Echo test — exit={$result['code']} output={$result['output']}");
 http_response_code(200);
 echo 'Debug complete';
 exit;
