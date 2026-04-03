@@ -10,6 +10,7 @@ const posts = defineCollection({
     category: z.enum(['Strategy', 'Client Work', 'Content Creation', 'For Businesses']),
     tags: z.array(z.string()).optional(),
     featuredImage: z.string().optional(),
+    featuredImageAlt: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

@@ -3,7 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 ---
 
-<Layout title="Pict Digital | Creative Consultancy, Aberdeen">
+<Layout
+  title="Pict Digital | Creative Consultancy, Aberdeen"
+  description="Boutique creative consultancy based in Aberdeen, Scotland. Narrative video, creative campaigns, digital marketing strategy, and place-based storytelling."
+>
   <Navigation />
 
   <main>
@@ -87,24 +90,31 @@ import Navigation from '../components/Navigation.astro';
           >
             <input type="hidden" name="_subject" value="New enquiry from pictdigital.com" />
 
-            <div class="form-field">
-              <label for="name" class="form-label specimen-label">Name</label>
-              <input type="text" id="name" name="name" required autocomplete="name" />
+            <div class="form-fields">
+              <div class="form-field">
+                <label for="name" class="form-label specimen-label">Name</label>
+                <input type="text" id="name" name="name" required autocomplete="name" />
+              </div>
+
+              <div class="form-field">
+                <label for="email" class="form-label specimen-label">Email</label>
+                <input type="email" id="email" name="email" required autocomplete="email" />
+              </div>
+
+              <div class="form-field">
+                <label for="message" class="form-label specimen-label">Message</label>
+                <textarea id="message" name="message" rows="4" placeholder="Tell us a bit about what you're thinking..." required></textarea>
+              </div>
+
+              <button type="submit" class="form-submit">
+                Send it over <span class="form-arrow" aria-hidden="true">→</span>
+              </button>
             </div>
 
-            <div class="form-field">
-              <label for="email" class="form-label specimen-label">Email</label>
-              <input type="email" id="email" name="email" required autocomplete="email" />
+            <div class="form-success is-gone" aria-live="polite">
+              <p class="form-success-heading">Thank you.</p>
+              <p class="annotation">We'll be in touch soon.</p>
             </div>
-
-            <div class="form-field">
-              <label for="message" class="form-label specimen-label">Message</label>
-              <textarea id="message" name="message" rows="4" placeholder="Tell us a bit about what you're thinking..." required></textarea>
-            </div>
-
-            <button type="submit" class="form-submit">
-              Send it over <span class="form-arrow" aria-hidden="true">→</span>
-            </button>
           </form>
         </div>
       </div>
@@ -389,6 +399,43 @@ import Navigation from '../components/Navigation.astro';
 
   </main>
 </Layout>
+
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Pict Digital",
+  "description": "Boutique creative consultancy based in Aberdeen, Scotland. Narrative video, creative campaigns, digital marketing strategy, and place-based storytelling.",
+  "url": "https://pictdigital.com",
+  "email": "hello@pictdigital.com",
+  "founder": {
+    "@type": "Person",
+    "name": "Josh Bircham",
+    "jobTitle": "Senior Lecturer in Digital Marketing & Founder",
+    "url": "https://rgu-repository.worktribe.com/person/799869/josh-bircham"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Aberdeen",
+    "addressRegion": "Scotland",
+    "addressCountry": "GB"
+  },
+  "areaServed": "GB",
+  "knowsAbout": [
+    "Narrative Video",
+    "Creative Campaigns",
+    "Digital Marketing Strategy",
+    "Social Media Content",
+    "Place-based Storytelling",
+    "Cultural Heritage"
+  ],
+  "sameAs": [
+    "https://www.instagram.com/pictdigital",
+    "https://www.youtube.com/@pict.digital",
+    "https://www.linkedin.com/company/pictdigital/"
+  ]
+}
+</script>
 
 
 <style is:global>
@@ -753,9 +800,7 @@ import Navigation from '../components/Navigation.astro';
   }
 
   .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    display: block;
   }
 
   .form-field {
@@ -832,6 +877,44 @@ import Navigation from '../components/Navigation.astro';
 
   .form-submit:hover .form-arrow {
     transform: translateX(4px);
+  }
+
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: opacity 0.35s ease;
+  }
+
+  .form-fields.is-fading {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Override display:flex/flex so these actually hide */
+  .form-fields.is-gone,
+  .form-success.is-gone { display: none; }
+
+  .form-success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .form-success.is-visible {
+    opacity: 1;
+  }
+
+  .form-success-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
   }
 
 
@@ -1208,6 +1291,37 @@ import Navigation from '../components/Navigation.astro';
 
 
 <script>
+  // Contact form — AJAX submit with fade transition
+  const contactForm = document.querySelector('.contact-form') as HTMLFormElement | null;
+  contactForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' },
+      });
+      if (res.ok) {
+        form.reset();
+        const fields  = form.querySelector('.form-fields') as HTMLElement;
+        const success = form.querySelector('.form-success') as HTMLElement;
+        // Fade fields out
+        fields.classList.add('is-fading');
+        fields.addEventListener('transitionend', () => {
+          fields.classList.add('is-gone');
+          success.classList.remove('is-gone');
+          // Two rAF frames so browser paints opacity:0 before transitioning to 1
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            success.classList.add('is-visible');
+          }));
+        }, { once: true });
+      }
+    } catch {
+      form.submit();
+    }
+  });
+
   // Fallback scroll observer for browsers without animation-timeline: view()
   if (!CSS.supports('animation-timeline', 'view()')) {
     const obs = new IntersectionObserver((entries) => {

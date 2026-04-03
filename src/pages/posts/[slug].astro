@@ -26,7 +26,7 @@ function formatDate(date: Date) {
     <article class="post-article">
       <header class="post-header">
         <div class="container">
-          <a href="/posts" class="back-link specimen-label">← All posts</a>
+          <a href="/posts" class="back-link specimen-label">← Field Notes</a>
           <div class="post-meta">
             <span class="specimen-label post-category">{post.data.category}</span>
             <time class="specimen-label post-date">{formatDate(post.data.date)}</time>
@@ -41,7 +41,7 @@ function formatDate(date: Date) {
         <div class="post-featured-image container">
           <img
             src={post.data.featuredImage}
-            alt="A figure at a desk surrounded by handwritten story notes, seen from behind in warm amber light"
+            alt={post.data.featuredImageAlt ?? post.data.title}
             class="post-hero-img"
           />
         </div>
@@ -54,7 +54,7 @@ function formatDate(date: Date) {
       <footer class="post-footer container">
         <hr class="rule rule--light" aria-hidden="true" />
         <div class="post-footer-inner">
-          <a href="/posts" class="back-link specimen-label">← All posts</a>
+          <a href="/posts" class="back-link specimen-label">← Field Notes</a>
           <a href="/#contact" class="contact-link specimen-label">Get in touch →</a>
         </div>
       </footer>

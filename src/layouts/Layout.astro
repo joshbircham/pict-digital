@@ -4,8 +4,15 @@ interface Props {
   description?: string;
   image?: string;
 }
-const { title = 'Pict Digital', description = 'Boutique creative consultancy based in Aberdeen, Scotland. Narrative video, creative campaigns, and place-based storytelling.', image } = Astro.props;
-const ogImage = image ? new URL(image, Astro.site).toString() : new URL('/images/pict-forest-image.jpg', Astro.site).toString();
+const {
+  title = 'Pict Digital',
+  description = 'Boutique creative consultancy based in Aberdeen, Scotland. Narrative video, creative campaigns, and place-based storytelling.',
+  image,
+} = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = image
+  ? new URL(image, Astro.site).toString()
+  : new URL('/images/pict-forest-image.jpg', Astro.site).toString();
 ---
 
 <!doctype html>
@@ -19,11 +26,18 @@ const ogImage = image ? new URL(image, Astro.site).toString() : new URL('/images
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pict Digital" />
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
