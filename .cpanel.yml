@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/thenort2/public_html
-    - /usr/local/bin/npm install
-    - /usr/local/bin/npm run build
-    - /bin/cp -r dist/. $DEPLOYPATH
+    - source /home/thenort2/nodevenv/repositories/pict-digital-staging/22/bin/activate && cd /home/thenort2/repositories/pict-digital-staging
+    - npm install
+    - npm run build
+    - cp -r dist/. /home/thenort2/public_html
