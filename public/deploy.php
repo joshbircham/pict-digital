@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // ── Verify GitHub signature ───────────────────────────────────────────────────
 $secret = getenv(SECRET_ENV);
+logMsg("Secret check: " . ($secret ? 'found' : 'NOT FOUND'));
 if (!$secret) {
     abort(500, 'Webhook secret not configured');
 }
