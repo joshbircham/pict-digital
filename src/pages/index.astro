@@ -195,19 +195,26 @@ import Navigation from '../components/Navigation.astro';
             <p class="about-lead" data-slide>
               Josh Bircham is a <a href="https://rgu-repository.worktribe.com/person/799869/josh-bircham" target="_blank" rel="noopener">Senior Lecturer in Digital Marketing at Robert Gordon University</a> and the founder of Pict Digital.
             </p>
+
+            <span class="about-subsection-label specimen-label" data-slide>Practice</span>
             <p data-slide>
-              His practice sits at the intersection of academic research and applied creative work - bringing
+              His practice sits at the intersection of academic research and applied creative work — bringing
               the same depth of thought to a short documentary as to a long-form campaign
               strategy. He has worked with broadcasters, cultural institutions, heritage bodies,
               and arts organisations across Scotland and beyond.
             </p>
+
+            <span class="about-subsection-label specimen-label" data-slide>Recognition</span>
             <p data-slide>
-              He is a published author, a Fellow of the Higher Education Academy, and is currently completing a PhD at RGU.
+              He is a <a href="https://www.amazon.co.uk/We-are-56-Josh-Bircham/dp/1910449512" target="_blank" rel="noopener">published author</a>, a Fellow of the Higher Education Academy, and is currently completing a PhD at RGU.
             </p>
+
+            <span class="about-subsection-label specimen-label" data-slide>Availability</span>
             <p data-slide>
               Pict Digital takes on a small number of projects each year.
             </p>
-            <p class="annotation" data-slide>
+
+            <p class="annotation about-footnote" data-slide>
               AI-informed workflows &nbsp;·&nbsp; Documentary approach &nbsp;·&nbsp; Theory in practice
             </p>
           </div>
@@ -284,15 +291,18 @@ import Navigation from '../components/Navigation.astro';
 
 
     <!-- ──────────────────────────────────────
-         POSTS
+         FIELD NOTES
     ────────────────────────────────────── -->
     <section id="posts" class="posts section">
       <div class="container">
         <hr class="rule rule--light section-top-rule" data-rule aria-hidden="true" />
 
         <div class="posts-header">
-          <span class="section-label" data-slide>Posts</span>
-          <a href="/posts" class="posts-all specimen-label" data-slide="right">All posts →</a>
+          <div class="posts-header-left">
+            <span class="section-label" data-slide>Field Notes</span>
+            <p class="posts-descriptor annotation" data-slide>Writing on practice, strategy, and the work.</p>
+          </div>
+          <a href="/posts" class="posts-all specimen-label" data-slide="right">All notes →</a>
         </div>
 
         <div class="posts-grid">
@@ -443,32 +453,33 @@ import Navigation from '../components/Navigation.astro';
 
   @supports (animation-timeline: view()) {
     [data-slide] {
-      --slide-x: -130px;
+      --slide-x: -80px;
       animation: slide-in linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 100%;
+      /* Start as element enters, finish once it's well into view */
+      animation-range: entry 0% cover 20%;
     }
-    [data-slide="right"] { --slide-x: 130px; }
+    [data-slide="right"] { --slide-x: 80px; }
 
     @media (max-width: 767px) {
-      [data-slide]         { --slide-x: -72px; animation-range: entry 0% entry 100%; }
-      [data-slide="right"] { --slide-x: 72px; }
+      [data-slide],
+      [data-slide="right"] { --slide-x: 0px; animation-range: entry 0% cover 15%; }
     }
   }
 
   @supports not (animation-timeline: view()) {
     [data-slide] {
       opacity: 0;
-      transform: translateX(-130px);
+      transform: translateX(-80px);
       transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
                   transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    [data-slide="right"] { transform: translateX(130px); }
+    [data-slide="right"] { transform: translateX(80px); }
     [data-slide].in-view { opacity: 1; transform: translateX(0); }
 
     @media (max-width: 767px) {
-      [data-slide]         { transform: translateX(-72px); }
-      [data-slide="right"] { transform: translateX(72px); }
+      [data-slide],
+      [data-slide="right"] { transform: none; }
     }
   }
 
@@ -518,28 +529,48 @@ import Navigation from '../components/Navigation.astro';
 
   /* ── HERO ── */
   .hero {
-    padding-top: var(--space-xl);
-    padding-bottom: var(--space-lg);
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-rule-light);
   }
 
   .hero-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 3rem;
+    gap: 0;
   }
 
   @media (min-width: 768px) {
     .hero-container {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 5rem;
+      display: grid;
+      grid-template-columns: 1fr 48%;
+      gap: 0;
+      align-items: stretch;
+      /* Remove right padding so photo can bleed to edge */
+      padding-right: 0;
+      /* Height: fill viewport so next section only enters on scroll */
+      height: clamp(520px, 74vh, 740px);
     }
   }
 
   .hero-inner {
     flex: 1;
     max-width: 560px;
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 3.5rem;
+      padding-top: clamp(2rem, 3vh, 3rem);
+      padding-bottom: clamp(2rem, 3vh, 3rem);
+    }
   }
 
   .hero-title {
@@ -565,15 +596,17 @@ import Navigation from '../components/Navigation.astro';
     color: var(--color-text-muted);
   }
 
-  /* Photo with Ken Burns */
+  /* Photo — full-bleed right on desktop */
   .hero-photo-wrapper {
-    flex: 0 0 auto;
     width: 100%;
+    overflow: hidden;
   }
 
   @media (min-width: 768px) {
     .hero-photo-wrapper {
-      width: 42%;
+      /* Extend beyond container to reach viewport right edge */
+      margin-right: calc(-1 * max(0px, (100vw - 1100px) / 2));
+      height: 100%;
     }
   }
 
@@ -582,16 +615,17 @@ import Navigation from '../components/Navigation.astro';
       padding: 0;
     }
 
-    /* Tall hero — image dominates, text box floats at the bottom */
+    /* Tall hero — text sits in upper portion, path visible below */
     .hero-container {
       position: relative;
-      min-height: 160vw;
+      min-height: 130vw;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
+      justify-content: flex-start;
       align-items: flex-start;
       gap: 0;
-      padding-bottom: 3rem;
+      padding-top: 28vw;
+      padding-bottom: 0;
     }
 
     /* Photo fills edge-to-edge, full height of hero */
@@ -603,7 +637,6 @@ import Navigation from '../components/Navigation.astro';
       bottom: 0;
       width: calc(100% + 3rem);
       max-height: none;
-      overflow: hidden;
       margin: 0;
       order: 0;
     }
@@ -613,7 +646,7 @@ import Navigation from '../components/Navigation.astro';
       border: none;
     }
 
-    /* Box sized to content — override flex: 1 so it doesn't fill the full hero height */
+    /* Box sized to content */
     .hero-inner {
       flex: none;
       position: relative;
@@ -622,6 +655,8 @@ import Navigation from '../components/Navigation.astro';
       padding: 1.1rem 1.5rem 1.25rem;
       max-width: none;
       width: 100%;
+      padding-top: 1.1rem;
+      padding-bottom: 1.25rem;
     }
 
     .hero-title {
@@ -635,18 +670,13 @@ import Navigation from '../components/Navigation.astro';
 
   .hero-photo-frame {
     overflow: hidden;
-    border: 1px solid var(--color-rule-light);
+    border: none;
     position: relative;
+    height: 100%;
   }
 
   .hero-photo-inner {
     height: 100%;
-  }
-
-  @media (min-width: 768px) {
-    .hero-photo-frame {
-      aspect-ratio: 3 / 4;
-    }
   }
 
   @keyframes ken-burns {
@@ -663,6 +693,7 @@ import Navigation from '../components/Navigation.astro';
     object-position: center bottom;
     animation: ken-burns 18s ease-in-out infinite;
     will-change: transform;
+    min-height: 400px;
   }
 
   @media (max-width: 767px) {
@@ -691,7 +722,7 @@ import Navigation from '../components/Navigation.astro';
   @media (min-width: 768px) {
     .soft-contact-inner {
       grid-template-columns: 1fr 1fr;
-      gap: 6rem;
+      gap: 3.5rem;
       align-items: start;
     }
   }
@@ -713,16 +744,24 @@ import Navigation from '../components/Navigation.astro';
     border-color: var(--color-accent);
   }
 
+  /* Thin vertical rule between columns */
+  @media (min-width: 768px) {
+    .contact-form {
+      border-left: 1px solid var(--color-rule-light);
+      padding-left: 3.5rem;
+    }
+  }
+
   .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
 
   .form-field {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .form-label {
@@ -732,54 +771,59 @@ import Navigation from '../components/Navigation.astro';
   .contact-form input,
   .contact-form textarea {
     font-family: var(--font-sans);
-    font-size: 0.9375rem;
+    font-size: 0.9rem;
     color: var(--color-text);
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--color-rule-light);
-    padding: 0.5rem 0;
+    background: #F5F4F1;
+    border: 1px solid var(--color-rule-light);
+    border-radius: 0;
+    padding: 0.75rem 1rem;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.25s ease, background 0.25s ease;
     width: 100%;
     resize: vertical;
+    -webkit-appearance: none;
   }
 
   .contact-form input:focus,
   .contact-form textarea:focus {
     border-color: var(--annotation-ink);
+    background: #fff;
   }
 
   .contact-form textarea {
-    line-height: 1.6;
+    line-height: 1.7;
+    min-height: 7rem;
   }
 
   .contact-form input::placeholder,
   .contact-form textarea::placeholder {
     color: var(--color-annotation);
     font-style: italic;
+    font-size: 0.875rem;
   }
 
   .form-submit {
     align-self: flex-start;
     font-family: var(--font-serif);
-    font-size: 0.6875rem;
+    font-size: 0.625rem;
     font-weight: 400;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: #F5F4F1;
-    background: #303123;
-    border: 1px solid #303123;
-    padding: 0.8rem 1.6rem;
+    background: var(--color-text);
+    border: 1px solid var(--color-text);
+    padding: 0.9rem 2rem;
+    margin-top: 0.25rem;
     cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.75rem;
   }
 
   .form-submit:hover {
-    background: #1e1f16;
-    border-color: #1e1f16;
+    background: transparent;
+    color: var(--color-text);
   }
 
   .form-arrow {
@@ -787,7 +831,7 @@ import Navigation from '../components/Navigation.astro';
   }
 
   .form-submit:hover .form-arrow {
-    transform: translateX(3px);
+    transform: translateX(4px);
   }
 
 
@@ -878,17 +922,35 @@ import Navigation from '../components/Navigation.astro';
     .about-body { grid-template-columns: 3fr 2fr; gap: 5rem; }
   }
 
-  .about-text h2 { font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: 1.5rem; }
+  .about-text h2 { font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: 2rem; }
 
   .about-lead {
-    font-size: 1.1rem;
+    font-size: 1.0625rem;
     font-weight: 400;
     color: var(--color-text);
-    margin-bottom: 1.5rem;
-    line-height: 1.7;
+    margin-bottom: 2.25rem;
+    line-height: 1.85;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-rule-light);
   }
 
-  .about-text p { margin-bottom: 1.25rem; }
+  .about-subsection-label {
+    display: block;
+    color: var(--color-accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .about-text p {
+    margin-bottom: 2rem;
+    line-height: 1.9;
+  }
+
+  .about-footnote {
+    margin-top: 0.5rem;
+    margin-bottom: 0 !important;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-rule-light);
+  }
 
   .about-credentials {
     display: flex;
@@ -950,15 +1012,24 @@ import Navigation from '../components/Navigation.astro';
   }
 
 
-  /* ── POSTS ── */
+  /* ── POSTS / FIELD NOTES ── */
   .posts-header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
     margin-bottom: 3rem;
+    gap: 2rem;
+  }
+
+  .posts-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .posts-header .section-label { margin-bottom: 0; }
+
+  .posts-descriptor { margin: 0; }
 
   .posts-all {
     color: var(--annotation-ink);
@@ -1002,6 +1073,8 @@ import Navigation from '../components/Navigation.astro';
   @media (min-width: 768px) {
     .post-card { border-top: none; border-left: 1px solid var(--color-rule-light); padding: 0 0 0 2rem; }
     .post-card:first-child { border-left: none; padding-left: 0; }
+    /* Single card: span 2 columns so it doesn't float in an empty grid */
+    .post-card:only-child { grid-column: span 2; }
   }
 
   .post-card-link {
