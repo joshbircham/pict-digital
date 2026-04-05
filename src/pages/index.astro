@@ -1,6 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const recentPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+}
 ---
 
 <Layout
@@ -317,20 +327,24 @@ import Navigation from '../components/Navigation.astro';
 
         <div class="posts-grid">
 
-          <article class="post-card" data-slide>
-            <a href="/posts/why-your-small-business-doesnt-need-a-rebrand" class="post-card-link">
-              <div class="post-card-image">
-                <img src="/images/post-images/narrative-branding-for-business.jpg" alt="A figure at a desk surrounded by handwritten story notes, seen from behind in warm amber light" />
-              </div>
-              <div class="post-card-meta">
-                <span class="specimen-label post-category">Strategy</span>
-                <time class="specimen-label post-date">March 2026</time>
-              </div>
-              <h3 class="post-card-title">Your brand story is not about you</h3>
-              <p class="post-card-excerpt">Most small businesses tell brand stories about themselves. The ones that build real trust tell stories about their customers - and understand exactly why that difference matters.</p>
-              <span class="post-card-read specimen-label">Read →</span>
-            </a>
-          </article>
+          {recentPosts.map((post) => (
+            <article class="post-card" data-slide>
+              <a href={`/posts/${post.id.replace(/\.(md|mdx)$/, '')}`} class="post-card-link">
+                <div class="post-card-image">
+                  {post.data.featuredImage && (
+                    <img src={post.data.featuredImage} alt={post.data.featuredImageAlt ?? post.data.title} />
+                  )}
+                </div>
+                <div class="post-card-meta">
+                  <span class="specimen-label post-category">{post.data.category}</span>
+                  <time class="specimen-label post-date">{formatDate(post.data.date)}</time>
+                </div>
+                <h3 class="post-card-title">{post.data.title}</h3>
+                <p class="post-card-excerpt">{post.data.description}</p>
+                <span class="post-card-read specimen-label">Read →</span>
+              </a>
+            </article>
+          ))}
 
         </div>
       </div>
