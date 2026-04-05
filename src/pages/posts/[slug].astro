@@ -19,7 +19,7 @@ function formatDate(date: Date) {
 }
 ---
 
-<Layout title={`${post.data.title} | Pict Digital`} description={post.data.description} image={post.data.featuredImage}>
+<Layout title={`${post.data.title} | Pict Digital`} description={post.data.description} image={post.data.featuredImage} ogType="article" publishedTime={post.data.date} author="Josh Bircham">
   <Navigation />
 
   <main>
@@ -49,6 +49,31 @@ function formatDate(date: Date) {
 
       <div class="post-body container">
         <Content />
+      </div>
+
+      <div class="post-author container">
+        <hr class="rule rule--light post-author-rule" aria-hidden="true" />
+        <div class="post-author-inner" itemscope itemtype="https://schema.org/Person">
+          <img
+            src="/images/josh-bircham.jpg"
+            alt="Josh Bircham"
+            class="post-author-photo"
+            width="64"
+            height="64"
+            itemprop="image"
+          />
+          <div class="post-author-info">
+            <span class="post-author-name" itemprop="name">Josh Bircham</span>
+            <span class="specimen-label post-author-title" itemprop="jobTitle">Founder, Pict Digital · Senior Lecturer, Digital Marketing</span>
+          </div>
+          <a
+            href="https://www.linkedin.com/in/josh-bircham/"
+            class="post-author-linkedin specimen-label"
+            target="_blank"
+            rel="noopener noreferrer"
+            itemprop="url"
+          >LinkedIn →</a>
+        </div>
       </div>
 
       <footer class="post-footer container">
@@ -177,6 +202,10 @@ function formatDate(date: Date) {
       max-width: calc(680px + 14rem);
     }
 
+    .post-author {
+      padding-left: 14rem;
+    }
+
     .post-body :global(blockquote) {
       float: left;
       clear: left;
@@ -205,6 +234,66 @@ function formatDate(date: Date) {
   .post-body :global(strong) {
     color: var(--color-text);
     font-weight: 500;
+  }
+
+  /* Author block */
+  .post-author {
+    padding-bottom: var(--space-lg);
+  }
+
+  .post-author-rule {
+    margin-bottom: 2rem;
+  }
+
+  .post-author-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .post-author-photo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .post-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
+  }
+
+  .post-author-name {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-text);
+  }
+
+  .post-author-title {
+    color: var(--color-annotation);
+  }
+
+  .post-author-linkedin {
+    color: var(--annotation-ink);
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .post-author-linkedin:hover {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 639px) {
+    .post-author-inner {
+      flex-wrap: wrap;
+    }
+    .post-author-linkedin {
+      width: 100%;
+    }
   }
 
   /* Footer */
