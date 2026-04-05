@@ -3,11 +3,17 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  ogType?: string;
+  publishedTime?: Date;
+  author?: string;
 }
 const {
   title = 'Pict Digital',
   description = 'Boutique creative consultancy based in Aberdeen, Scotland. Narrative video, creative campaigns, and place-based storytelling.',
   image,
+  ogType = 'website',
+  publishedTime,
+  author,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 const ogImage = image
@@ -28,12 +34,14 @@ const ogImage = image
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="Pict Digital" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {author && <meta property="article:author" content={author} />}
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -49,7 +57,11 @@ const ogImage = image
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+    <!-- Preload the font CSS so the browser starts the font download chain earlier -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Inter:wght@300;400;500&display=swap" as="style" />
+    <!-- Load non-blocking: media=print trick defers parse until after first paint -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Inter:wght@300;400;500&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Inter:wght@300;400;500&display=swap" /></noscript>
   </head>
   <body>
     <slot />
@@ -57,6 +69,21 @@ const ogImage = image
 </html>
 
 <style is:global>
+  /*
+   * Metric-adjusted fallback for Playfair Display.
+   * size-adjust 97.5% = Playfair cap-height (698) / Georgia cap-height (716).
+   * ascent/descent overrides keep line-box height consistent so text doesn't
+   * jump vertically when the webfont swaps in.
+   */
+  @font-face {
+    font-family: 'Playfair Display Fallback';
+    src: local('Georgia'), local('Times New Roman');
+    size-adjust: 97.5%;
+    ascent-override: 90%;
+    descent-override: 27%;
+    line-gap-override: 0%;
+  }
+
   :root {
     --color-bg:           #F9F9F7;
     --color-text:         #1a1714;
@@ -70,7 +97,7 @@ const ogImage = image
     --annotation-rule:    #C4B89A;
 
     --font-display: 'Big Shoulders Display', sans-serif;
-    --font-serif:   'Playfair Display', Georgia, serif;
+    --font-serif:   'Playfair Display', 'Playfair Display Fallback', Georgia, serif;
     --font-sans:    'Inter', system-ui, sans-serif;
 
     --container-max: 1100px;
