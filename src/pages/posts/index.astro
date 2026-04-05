@@ -30,21 +30,30 @@ function formatDate(date: Date) {
       <div class="container">
         <hr class="rule rule--light" aria-hidden="true" />
 
-        {posts.map((post) => (
-          <article class="post-row">
-            <a href={`/posts/${post.id.replace(/\.(md|mdx)$/, '')}`} class="post-row-link">
-              <div class="post-row-meta">
-                <span class="specimen-label post-category">{post.data.category}</span>
-                <time class="specimen-label post-date">{formatDate(post.data.date)}</time>
+        <div class="posts-grid">
+          {posts.map((post) => (
+            <a href={`/posts/${post.id.replace(/\.(md|mdx)$/, '')}`} class="post-card">
+              <div class="post-card-image">
+                {post.data.featuredImage && (
+                  <img
+                    src={post.data.featuredImage}
+                    alt={post.data.featuredImageAlt ?? post.data.title}
+                    loading="lazy"
+                  />
+                )}
               </div>
-              <div class="post-row-body">
-                <h2 class="post-row-title">{post.data.title}</h2>
-                <p class="post-row-excerpt">{post.data.description}</p>
+              <div class="post-card-body">
+                <div class="post-card-meta">
+                  <span class="specimen-label post-category">{post.data.category}</span>
+                  <span class="specimen-label post-date"> · {formatDate(post.data.date)}</span>
+                </div>
+                <h2 class="post-card-title">{post.data.title}</h2>
+                <p class="post-card-excerpt">{post.data.description}</p>
+                <span class="post-card-read specimen-label">Read →</span>
               </div>
-              <span class="post-row-read specimen-label">Read →</span>
             </a>
-          </article>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   </main>
@@ -76,35 +85,70 @@ function formatDate(date: Date) {
 
   .posts-listing { padding-top: 0; }
 
-  .post-row {
-    border-bottom: 1px solid var(--color-rule-light);
-  }
-
-  .post-row-link {
+  /* Grid */
+  .posts-grid {
     display: grid;
-    grid-template-columns: 14rem 1fr auto;
-    gap: 2rem 3rem;
-    align-items: center;
-    padding: 2rem 0;
-    color: inherit;
-    transition: color 0.15s ease;
+    grid-template-columns: 1fr;
+    gap: 3rem 2.5rem;
+    padding-top: var(--space-md);
   }
 
-  .post-row-link:hover .post-row-title { color: var(--color-accent); }
-  .post-row-link:hover .post-row-read  { color: var(--color-accent); }
+  @media (min-width: 640px) {
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+  }
 
-  .post-row-meta {
+  @media (min-width: 1024px) {
+    .posts-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Card */
+  .post-card {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .post-card:hover .post-card-title { color: var(--color-accent); }
+  .post-card:hover .post-card-read  { color: var(--color-accent); }
+
+  /* Image */
+  .post-card-image {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background-color: var(--color-rule-light);
+    margin-bottom: 1.25rem;
+  }
+
+  .post-card-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .post-card:hover .post-card-image img {
+    transform: scale(1.03);
+  }
+
+  /* Body */
+  .post-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .post-card-meta {
+    margin-bottom: 0.6rem;
   }
 
   .post-category { color: var(--color-accent); }
   .post-date     { color: var(--color-annotation); }
 
-  .post-row-title {
+  .post-card-title {
     font-family: var(--font-serif);
-    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
     font-weight: 400;
     line-height: 1.35;
     color: var(--color-text);
@@ -112,24 +156,19 @@ function formatDate(date: Date) {
     transition: color 0.2s ease;
   }
 
-  .post-row-excerpt {
+  .post-card-excerpt {
     font-size: 0.875rem;
-    max-width: 520px;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1rem;
   }
 
-  .post-row-read {
+  .post-card-read {
     color: var(--annotation-ink);
-    white-space: nowrap;
     transition: color 0.2s ease;
-  }
-
-  @media (max-width: 767px) {
-    .post-row-link {
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-      padding: 1.75rem 0;
-    }
-    .post-row-meta { flex-direction: row; gap: 1rem; }
-    .post-row-read { display: none; }
+    margin-top: auto;
   }
 </style>
