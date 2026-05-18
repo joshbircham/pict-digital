@@ -218,7 +218,7 @@ function formatDate(date: Date) {
 
             <span class="about-subsection-label specimen-label" data-slide>Practice</span>
             <p data-slide>
-              His practice sits at the intersection of academic research and applied creative work — bringing
+              His practice sits at the intersection of academic research and applied creative work - bringing
               the same depth of thought to a short documentary as to a long-form campaign
               strategy. He has worked with broadcasters, cultural institutions, heritage bodies,
               and arts organisations across Scotland and beyond.
@@ -971,7 +971,40 @@ function formatDate(date: Date) {
   }
 
 
+  /* ── SOCIAL FEATURE ── */
+  .social-feature-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
 
+  @media (min-width: 768px) {
+    .social-feature-inner {
+      grid-template-columns: 3fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+  }
+
+  .social-feature-text h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .social-feature-text p { margin-bottom: 1.25rem; max-width: 520px; }
+
+  .social-links {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  .social-link {
+    color: var(--annotation-ink);
+    transition: color 0.2s ease;
+  }
+
+  .social-link:hover { color: var(--color-accent); }
 
   /* ── ABOUT ── */
   .about { padding-top: 3rem; }
